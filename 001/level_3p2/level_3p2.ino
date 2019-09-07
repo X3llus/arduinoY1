@@ -9,6 +9,7 @@ String morse = "-... -.-.";
 void setup() {
   // put your setup code here, to run once:
   pinMode(bLED, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -17,24 +18,31 @@ void loop() {
 
     // on time
     digitalWrite(bLED, HIGH);
-    if (morse[i] == "-") {
+    if (morse.charAt(i) == '-') {
       delay(dash);
-    } else if (morse[i] == ".") {
+      Serial.write("dash");
+    } else if (morse.charAt(i) == '.') {
       delay(dot);
+      Serial.write("dot");
     }
     
     // off time
     digitalWrite(bLED, LOW);
-    if (morse[i+1] == " ") {
-      if (morse[i + 2] == "/") {
-        i++;
+    if (morse.charAt(i) ==  ' ') {
+      if (morse.charAt(i+1) == '/') {
         delay(dash*4);
+        Serial.print("\n\n");
       } else {
-        i+=2;
         delay(dash);
+        Serial.print("\n");
       }
     } else {
       delay(dot);
+      Serial.print(" ");
     }
   }
+
+  delay(dash*4);
+  Serial.print("\n\n\n");
+  
 }
