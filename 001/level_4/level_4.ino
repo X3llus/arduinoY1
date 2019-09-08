@@ -19,7 +19,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (digitalRead(SW1) == HIGH) {
+  // 
+  if (digitalRead(SW1) == LOW) {
     on = true;
   }
 
@@ -30,18 +31,18 @@ void loop() {
       digitalWrite(bLED, LOW);
       switcher = false;
     } else {
-      digitalWrite(rLED, HIGH);
-      digitalWrite(bLED, LOW);
+      digitalWrite(rLED, LOW);
+      digitalWrite(bLED, HIGH);
       switcher = true;
     }
 
-    if (digitalRead(SW2) == HIGH) {
+    if (digitalRead(SW2) == LOW) {
       digitalWrite(rLED, LOW);
       digitalWrite(bLED, LOW);
       on = false;
     }
 
-    delay(500);
+    delay(100);
     
   }
   
