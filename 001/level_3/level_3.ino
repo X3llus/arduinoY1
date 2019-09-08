@@ -14,16 +14,33 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  // part one
+  //three slow flashes
+  for (int i = 3; i > 0; i--) {
+    digitalWrite(bLED, HIGH);
+    delay(dash);
+    digitalWrite(bLED, LOW);
+    delay(dash);
+  }
+
+  //three long flashes
+  for (int i = 3; i > 0; i--) {
+    digitalWrite(bLED, HIGH);
+    delay(dot);
+    digitalWrite(bLED, LOW);
+    delay(dot);
+  }
+
+  // part two
   for (int i = 0; i <= morse.length(); i++) {
 
     // on time
     digitalWrite(bLED, HIGH);
     if (morse.charAt(i) == '-') {
       delay(dash);
-      Serial.write("dash");
     } else if (morse.charAt(i) == '.') {
       delay(dot);
-      Serial.write("dot");
     }
     
     // off time
@@ -31,18 +48,12 @@ void loop() {
     if (morse.charAt(i) ==  ' ') {
       if (morse.charAt(i+1) == '/') {
         delay(dash*4);
-        Serial.print("\n\n");
       } else {
         delay(dash);
-        Serial.print("\n");
       }
     } else {
       delay(dot);
-      Serial.print(" ");
     }
   }
-
-  delay(dash*4);
-  Serial.print("\n\n\n");
-  
+  delay(dash*4);  
 }
