@@ -1,3 +1,6 @@
+// code: 001: level 3
+// author: Braden Coates
+
 // defining pins and times
 #define bLED 13
 #define dot 100
@@ -37,23 +40,23 @@ void loop() {
 
     // on time
     digitalWrite(bLED, HIGH);
-    if (morse.charAt(i) == '-') {
+    if (morse.charAt(i) == '-') { // if character is a dash
       delay(dash);
-    } else if (morse.charAt(i) == '.') {
+    } else if (morse.charAt(i) == '.') { // if character is a dot
       delay(dot);
     }
     
     // off time
     digitalWrite(bLED, LOW);
-    if (morse.charAt(i) ==  ' ') {
-      if (morse.charAt(i+1) == '/') {
+    if (morse.charAt(i) ==  ' ') { //if character is a space
+      if (morse.charAt(i+1) == '/') { // between words
         delay(dash*4);
-      } else {
+      } else { //between character
         delay(dash);
       }
-    } else {
+    } else { //between dots and dashes
       delay(dot);
     }
   }
-  delay(dash*4);  
+  delay(dash*4); //delayed restart
 }
