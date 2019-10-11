@@ -11,9 +11,10 @@
 #define RGBGreenPin 10
 #define RGBBluePin 11
 
+// 2d array that stores the note, the note length, and the delay until next note
 int notes[119][3] = {{NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 100}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_G3, 50, 100}, {NOTE_A3, 50, 50}, {NOTE_G3, 50, 50}, {NOTE_FS3, 50, 50}, {NOTE_E3, 50, 100}, {NOTE_E4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_G4, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_B3, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_G4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_E4, 50, 400}, {NOTE_E4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_G4, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_B3, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_G4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_E4, 50, 400}, {NOTE_E4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_G4, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_B3, 50, 200}, {NOTE_B4, 50, 200}, {NOTE_A4, 50, 100}, {NOTE_G4, 50, 100}, {NOTE_FS4, 50, 400}, {NOTE_E4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_G4, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_B3, 50, 200}, {NOTE_A4, 50, 200}, {NOTE_G4, 50, 100}, {NOTE_FS4, 50, 100}, {NOTE_E4, 50, 400}, {NOTE_G4, 50, 100}, {NOTE_G4, 50, 300}, {NOTE_G4, 50, 100}, {NOTE_G4, 50, 300}, {NOTE_G4, 50, 100}, {NOTE_G4, 50, 300}, {NOTE_A4, 50, 10}, {NOTE_FS4, 50, 300}, {NOTE_G4, 50, 100}, {NOTE_G4, 50, 300}, {NOTE_G4, 50, 100}, {NOTE_G4, 50, 300}, {NOTE_G4, 50, 100}, {NOTE_G4, 50, 300}, {NOTE_A4, 50, 100}, {NOTE_FS4, 50, 300}, {NOTE_G4, 50, 100}, {NOTE_A4, 50, 100}, {NOTE_G4, 50, 50}, {NOTE_FS4, 50, 50}, {NOTE_E4, 50, 100}, {NOTE_G4, 50, 100}, {NOTE_A4, 50, 100}, {NOTE_G4, 50, 50}, {NOTE_FS4, 50, 50}, {NOTE_E4, 50, 100}, {NOTE_G4, 50, 100}, {NOTE_A4, 50, 100}, {NOTE_G4, 50, 50}, {NOTE_FS4, 50, 50}, {NOTE_E4, 50, 100}, {NOTE_G4, 50, 100}, {NOTE_A4, 50, 100}, {NOTE_G4, 50, 50}, {NOTE_FS4, 50, 50}, {NOTE_E4, 50, 100}, {NOTE_G4, 50, 100}, {NOTE_A4, 50, 400}, {NOTE_G4, 50, 100}, {NOTE_A4, 50, 100}, {NOTE_G4, 50, 50}, {NOTE_FS4, 50, 50}, {NOTE_E4, 50, 50}};
 
-void resetRGB() {
+void resetRGB() { // Resets the RBG
   analogWrite(RGBRedPin, 0);
   analogWrite(RGBGreenPin, 0);
   analogWrite(RGBBluePin, 0);
@@ -34,8 +35,10 @@ void blueFade(int fade) { // Fade blue LED
   analogWrite(RGBBluePin, fade);
 }
 
+// function to play my song with colours
 void song() {
   for (int i = 0; i < 119; i++) {
+    // pick a random colour and map the pitch to that colour
     switch(random(3)) {
       case 0:
         redFade(map(notes[i][0], 31, 4978, 0, 255));
@@ -47,6 +50,7 @@ void song() {
         blueFade(map(notes[i][0], 31, 4978, 0, 255));
         break;
     }
+    // play the tone
     tone(buzzerPin, notes[i][0], notes[i][1]*2);
     delay(notes[i][2]*2);
   }
@@ -64,9 +68,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   while (digitalRead(buttonPin) == HIGH) {
-    // do nothing
+    // do nothing until button is pressed
   }
-
+  // play the song
   song();
-
 }
