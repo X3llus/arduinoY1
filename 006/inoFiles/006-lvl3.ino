@@ -1,3 +1,6 @@
+// Program: 006 LVL3
+// Author: Braden Coates
+
 #define b1 2 // button 1
 #define b2 3 // button 2
 #define RGBRedPin 9    // The red RGB LED is connected pin 9 of the Arduino.
